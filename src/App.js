@@ -5,7 +5,7 @@ function App() {
   const [list,setList]=useState(['empty','is it!?'])
   const [content,setContent]=useState('');
   return (
-    <div className=" bg-slate-500 h-full absolute w-full">
+    <div className=" ">
       <div className=" bg-slate-300 m-2  h-16">
         <p className=" text-center items-center">hi</p>
       </div>
