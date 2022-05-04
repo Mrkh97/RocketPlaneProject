@@ -65,26 +65,55 @@ export const options = {
     },
   },
 };
+let deltaT = 0.1;
 
-let labels = [];
-for (let i=1;i<=100;i++){
-  labels.push(i);
+let planeV = 200;
+let XPlane = 0;
+let YPlane = 100;
+let XtPlane = [];
+let YtPlane = [];
+let planeCordinates = {};
+
+let rocketV = 100;
+let XRocket = 0;
+let YRocket = 0;
+let XtRocket = [];
+let YtRocket = [];
+let rocketCordinates = {};
+
+
+let time = [];
+let labels = time;
+for (let i=0;i<=100;i++){
+  time.push(i);
+  XtPlane.push(XPlane);
+  YtPlane.push(YPlane);
+  XtRocket.push(XRocket);
+  YtRocket.push(YRocket);
+  XPlane = XPlane + (planeV*deltaT);
+  YPlane = YPlane;
+  XRocket = XRocket + (rocketV*deltaT*((XPlane-XRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
+  YRocket = YRocket + (rocketV*deltaT*((YPlane-YRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
+
+  
 }
-
+console.log(XtPlane,XtRocket);
 //commit on test branch
+
+
 
 export const data = {
   labels,
   datasets: [
     {
       label: 'Plane',
-      data: labels.map(() => 300),
+      data: XtPlane.map((item,i) => YtPlane[i]),
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
     {
       label: 'Rocket',
-      data: labels.map((item) => item*3),
+      data: XtRocket.map((item,i) => YtRocket[i]),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
