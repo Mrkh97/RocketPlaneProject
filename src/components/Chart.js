@@ -29,7 +29,7 @@ ChartJS.register(
   let YtPlane = [];
   let planeCordinates = {};
   
-  let rocketV = 15;
+  let rocketV = 20;
   let XRocket = 0;
   let YRocket = 0;
   let XtRocket = [];
@@ -45,17 +45,18 @@ ChartJS.register(
     XRocket = XRocket + (rocketV*deltaT*((XPlane-XRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
     YRocket = YRocket + (rocketV*deltaT*((YPlane-YRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
     console.log((Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2))));
-    if((Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))<0.001){
+    if((Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))<deltaT){
+      //having problem with this at last have to use deltaT value fro breaking
       break;
     }
   
   }
   
-  XtPlane.forEach((item,i)=>planeCordinates[item]=YtPlane[i]);
+  XtPlane.forEach((item,i)=>planeCordinates[item.toFixed(10)]=YtPlane[i]);
   XtRocket.forEach((item,i)=>rocketCordinates[item]=YtRocket[i]);
   
 
-const totalDuration = 40000;
+const totalDuration = 10000;
 const delayBetweenPoints = totalDuration / XtPlane.length;
 const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 const animation = {
@@ -118,7 +119,7 @@ let labels = [];
 //   labels.push(i);
 // }
 
-console.log(planeCordinates)
+
 
 
 
