@@ -20,8 +20,43 @@ ChartJS.register(
     Legend
   );
   
-const totalDuration = 5000;
-const delayBetweenPoints = totalDuration / 100;
+  let deltaT = 0.2;
+
+  let planeV = 12;
+  let XPlane = 0;
+  let YPlane = 100;
+  let XtPlane = [];
+  let YtPlane = [];
+  let planeCordinates = {};
+  
+  let rocketV = 15;
+  let XRocket = 0;
+  let YRocket = 0;
+  let XtRocket = [];
+  let YtRocket = [];
+  let rocketCordinates = {};
+  
+  while( XPlane < 100 ){
+    XtPlane.push(XPlane);
+    YtPlane.push(YPlane);
+    XtRocket.push(XRocket);
+    YtRocket.push(YRocket);
+    XPlane = XPlane + (planeV*deltaT);
+    XRocket = XRocket + (rocketV*deltaT*((XPlane-XRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
+    YRocket = YRocket + (rocketV*deltaT*((YPlane-YRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
+    console.log((Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2))));
+    if((Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))<0.001){
+      break;
+    }
+  
+  }
+  
+  XtPlane.forEach((item,i)=>planeCordinates[item]=YtPlane[i]);
+  XtRocket.forEach((item,i)=>rocketCordinates[item]=YtRocket[i]);
+  
+
+const totalDuration = 40000;
+const delayBetweenPoints = totalDuration / XtPlane.length;
 const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 const animation = {
   x: {
@@ -54,6 +89,16 @@ const animation = {
 
 export const options = {
   animation,
+  scales: {
+    x: {
+        max: 100,
+        min: 0,
+        type: 'linear',
+        ticks: {
+            stepSize: 0.5
+        }
+    }
+},
   responsive: true,
   plugins: {
     legend: {
@@ -65,40 +110,15 @@ export const options = {
     },
   },
 };
-let deltaT = 0.1;
 
-let planeV = 200;
-let XPlane = 0;
-let YPlane = 100;
-let XtPlane = [];
-let YtPlane = [];
-let planeCordinates = {};
-
-let rocketV = 100;
-let XRocket = 0;
-let YRocket = 0;
-let XtRocket = [];
-let YtRocket = [];
-let rocketCordinates = {};
-
-
-let time = [];
-let labels = time;
-for (let i=0;i<=100;i++){
-  time.push(i);
-  XtPlane.push(XPlane);
-  YtPlane.push(YPlane);
-  XtRocket.push(XRocket);
-  YtRocket.push(YRocket);
-  XPlane = XPlane + (planeV*deltaT);
-  YPlane = YPlane;
-  XRocket = XRocket + (rocketV*deltaT*((XPlane-XRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
-  YRocket = YRocket + (rocketV*deltaT*((YPlane-YRocket)/(Math.sqrt(((XPlane-XRocket)**2)+((YPlane-YRocket)**2)))));
-
-  
-}
-console.log(XtPlane,XtRocket);
 //commit on test branch
+
+let labels = [];
+// for (let i = 0; i <= 100; i++) {
+//   labels.push(i);
+// }
+
+console.log(planeCordinates)
 
 
 
@@ -107,13 +127,13 @@ export const data = {
   datasets: [
     {
       label: 'Plane',
-      data: XtPlane.map((item,i) => YtPlane[i]),
+      data: planeCordinates,
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
     {
       label: 'Rocket',
-      data: XtRocket.map((item,i) => YtRocket[i]),
+      data: rocketCordinates,
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
