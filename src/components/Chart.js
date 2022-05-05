@@ -28,8 +28,10 @@ export default function Chart() {
   const [planeSpeedValue,setPlaneSpeedValue] = useState(12);
   const [planeV,setPlaneV] = useState(12);
 
-  const [rocketSpeedValue,setRocektSpeedValue] = useState(15);
-  const [rocketV,setRocketV] = useState(15);
+  const [rocketSpeedValue,setRocektSpeedValue] = useState(20);
+  const [rocketV,setRocketV] = useState(20);
+
+  // const [isCaught,setIsCought] = useState(false);
   
   let XPlane = 0;
   let YPlane = 100;
@@ -43,6 +45,8 @@ export default function Chart() {
   let YtRocket = [];
   let rocketCordinates = {};
 
+  let isIt = false;
+
   while (XPlane < 100) {
     XtPlane.push(XPlane);
     YtPlane.push(YPlane);
@@ -54,9 +58,14 @@ export default function Chart() {
     console.log((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))));
     if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))) < 0.1) {
       //having problem with this at last have to use deltaT value fro breaking
+      // setIsCought(true);
+      // isIt=true;
       break;
     }
+    // console.log(isCaught);
   }
+
+  
 
   XtPlane.forEach((item, i) => planeCordinates[item.toFixed(10)] = YtPlane[i]);
   XtRocket.forEach((item, i) => rocketCordinates[item] = YtRocket[i]);
@@ -142,6 +151,10 @@ export default function Chart() {
     ],
   };
 
+  // if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))) < 0.1){
+  //   setIsCought(true);
+  // }
+
   return <div>
     <div className=" p-10 bg-slate-300 m-2 rounded-lg">
       <Line options={options} data={data} />
@@ -159,7 +172,9 @@ export default function Chart() {
       <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={rocketSpeedValue} onChange={(event)=>setRocektSpeedValue(event.target.value)}/>
       <button className=' bg-slate-700 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={()=>setRocketV(rocketSpeedValue)}>Set Rocket Speed</button>
       </div>
-      
+    </div>
+    <div className={XPlane<99?' h-10 m-2 rounded-lg flex justify-center items-center bg-red-500':'h-10 m-2 rounded-lg flex justify-center items-center bg-green-500'}>
+      <p className=' text-slate-200 text-xl'>{XPlane<99?"rocket hits the plane D;":"plane ran away :D"}</p>
     </div>
   </div>
 
