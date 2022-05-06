@@ -45,7 +45,7 @@ export default function Chart() {
   let YtRocket = [];
   let rocketCordinates = {};
 
-  let isIt = false;
+ 
 
   while (XPlane < 100) {
     XtPlane.push(XPlane);
