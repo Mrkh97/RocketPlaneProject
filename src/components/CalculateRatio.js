@@ -1,3 +1,28 @@
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+//   import { useState } from 'react';
+  import { Line } from 'react-chartjs-2';
+  
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  
+
 export default function CalculateRatio() {
 
 
@@ -16,7 +41,7 @@ export default function CalculateRatio() {
     let planeSpeedRatio = [];
     let rocketSpeedRatio = [];
 
-    let ratio = {};
+    let ratio = [];
 
     function CalculateDistance(planeV, rocketV) {
         XPlane = 0;
@@ -46,16 +71,64 @@ export default function CalculateRatio() {
             if (CalculateDistance(planeSpeed, rocketSpeed)) {
                 planeSpeedRatio.push(planeSpeed);
                 rocketSpeedRatio.push(rocketSpeed);
+                ratio.push(rocketSpeed/planeSpeed);
             }
             
 
         }
 
     }
-    planeSpeedRatio.forEach((item,i)=>ratio[item]=rocketSpeedRatio[i]);
+    // planeSpeedRatio.forEach((item,i)=>ratio[item]=rocketSpeedRatio[i]);
     console.log(ratio);
 
-    return <div>
-        hi
+    
+
+  const options = {
+    
+    // scales: {
+    //   x: {
+    //     max: 100,
+    //     min: 0,
+    //     type: 'linear',
+    //     ticks: {
+    //       stepSize: 0.5
+    //     }
+    //   }
+    // },
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
+
+  //commit on test branch
+
+  let labels = [];
+  for (let i = 0; i <= ratio.length; i++) {
+    labels.push(i);
+  }
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'ratio',
+        data: ratio,
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+      
+    ],
+  };
+
+    return <div className=" p-10 bg-slate-300 m-2 rounded-lg">
+      <Line options={options} data={data} />
     </div>
+    
 }
