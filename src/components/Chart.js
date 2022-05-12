@@ -22,8 +22,8 @@ ChartJS.register(
 );
 
 export default function Chart() {
-  const [deltaValue,setDeltaValue] =useState(0.02)
-  const [deltaT, setDeltaT] = useState(0.02);
+  const [deltaValue,setDeltaValue] =useState(0.01)
+  const [deltaT, setDeltaT] = useState(0.01);
 
   const [planeSpeedValue,setPlaneSpeedValue] = useState(13);
   const [planeV,setPlaneV] = useState(13);

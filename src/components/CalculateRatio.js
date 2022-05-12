@@ -2,7 +2,7 @@ export default function CalculateRatio() {
 
 
 
-    let deltaT = 0.05;
+    let deltaT = 0.01;
     let planeSpeed;
     let rocketSpeed;
 
@@ -13,7 +13,10 @@ export default function CalculateRatio() {
     let XRocket = 0;
     let YRocket = 0;
 
-    let ratio = [];
+    let planeSpeedRatio = [];
+    let rocketSpeedRatio = [];
+
+    let ratio = {};
 
     function CalculateDistance(planeV, rocketV) {
         XPlane = 0;
@@ -26,7 +29,7 @@ export default function CalculateRatio() {
             XRocket = XRocket + (rocketV * deltaT * ((XPlane - XRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
             YRocket = YRocket + (rocketV * deltaT * ((YPlane - YRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
             // console.log((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))));
-            if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))) < 0.1) {
+            if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))) < deltaT) {
 
                 return true;
             }
@@ -38,16 +41,18 @@ export default function CalculateRatio() {
 
 
 
-    for (rocketSpeed = 1; rocketSpeed <= 20; rocketSpeed++) {
+    for (rocketSpeed = 1; rocketSpeed <= 100; rocketSpeed++) {
         for (planeSpeed = 1; planeSpeed <= rocketSpeed; planeSpeed++) {
             if (CalculateDistance(planeSpeed, rocketSpeed)) {
-                ratio.push(rocketSpeed / planeSpeed);
+                planeSpeedRatio.push(planeSpeed);
+                rocketSpeedRatio.push(rocketSpeed);
             }
+            
 
         }
 
     }
-
+    planeSpeedRatio.forEach((item,i)=>ratio[item]=rocketSpeedRatio[i]);
     console.log(ratio);
 
     return <div>
