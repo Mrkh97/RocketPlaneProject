@@ -25,8 +25,8 @@ export default function Chart() {
   const [deltaValue,setDeltaValue] =useState(0.02)
   const [deltaT, setDeltaT] = useState(0.02);
 
-  const [planeSpeedValue,setPlaneSpeedValue] = useState(12);
-  const [planeV,setPlaneV] = useState(12);
+  const [planeSpeedValue,setPlaneSpeedValue] = useState(13);
+  const [planeV,setPlaneV] = useState(13);
 
   const [rocketSpeedValue,setRocektSpeedValue] = useState(20);
   const [rocketV,setRocketV] = useState(20);
@@ -55,11 +55,12 @@ export default function Chart() {
     XPlane = XPlane + (planeV * deltaT);
     XRocket = XRocket + (rocketV * deltaT * ((XPlane - XRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
     YRocket = YRocket + (rocketV * deltaT * ((YPlane - YRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
-    console.log((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))));
+    // console.log((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))));
     if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))) < 0.1) {
       //having problem with this at last have to use deltaT value fro breaking
       // setIsCought(true);
       // isIt=true;
+      console.log('yes');
       break;
     }
     // console.log(isCaught);

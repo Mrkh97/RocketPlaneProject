@@ -7,6 +7,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import CalculateRatio from "./components/CalculateRatio";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/chart" element={<Chart/>} />
+      <Route path="/calculateratio" element={<CalculateRatio/>} />
     </Routes>
   </Router>
   );

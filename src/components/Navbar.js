@@ -11,7 +11,7 @@ export default function Navbar(){
         <ul className='flex my-3 p-2'>
             <NavbarItem text="Home" />
             <NavbarItem text="Chart" />
-            <NavbarItem text="Contact Me" />
+            <NavbarItem text="CalculateRatio" />
             
         </ul>
     </div>
