@@ -22,17 +22,17 @@ ChartJS.register(
 );
 
 export default function Chart() {
-  const [deltaValue,setDeltaValue] =useState(0.01)
+  const [deltaValue, setDeltaValue] = useState(0.01)
   const [deltaT, setDeltaT] = useState(0.01);
 
-  const [planeSpeedValue,setPlaneSpeedValue] = useState(13);
-  const [planeV,setPlaneV] = useState(13);
+  const [planeSpeedValue, setPlaneSpeedValue] = useState(13);
+  const [planeV, setPlaneV] = useState(13);
 
-  const [rocketSpeedValue,setRocektSpeedValue] = useState(20);
-  const [rocketV,setRocketV] = useState(20);
+  const [rocketSpeedValue, setRocektSpeedValue] = useState(20);
+  const [rocketV, setRocketV] = useState(20);
 
   // const [isCaught,setIsCought] = useState(false);
-  
+
   let XPlane = 0;
   let YPlane = 100;
   let XtPlane = [];
@@ -45,7 +45,7 @@ export default function Chart() {
   let YtRocket = [];
   let rocketCordinates = {};
 
- 
+
 
   while (XPlane < 100) {
     XtPlane.push(XPlane);
@@ -66,7 +66,7 @@ export default function Chart() {
     // console.log(isCaught);
   }
 
-  
+
 
   XtPlane.forEach((item, i) => planeCordinates[item.toFixed(10)] = YtPlane[i]);
   XtRocket.forEach((item, i) => rocketCordinates[item] = YtRocket[i]);
@@ -156,26 +156,28 @@ export default function Chart() {
   //   setIsCought(true);
   // }
 
-  return <div>
-    <div className=" p-10 bg-slate-300 m-2 rounded-lg">
+  return <div className=" grid grid-cols-4">
+    <div className=" p-10 bg-slate-300 m-2 rounded-lg  col-span-3">
       <Line options={options} data={data} />
     </div>
-    <div className=" m-2 bg-slate-300 rounded-lg text-center">
-      <div className=' inline-block mx-2'>
-      <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={deltaValue} onChange={(event)=>setDeltaValue(event.target.value)}/>
-      <button className='bg-slate-700 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105 ' onClick={()=>setDeltaT(deltaValue)}>Set Delta T</button>
+    <div className='flex flex-col '>
+      <div className=" m-2 p-3 bg-slate-300 rounded-lg basis-2/3 flex flex-col justify-between ">
+        <div className=' inline-block '>
+          <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={deltaValue} onChange={(event) => setDeltaValue(event.target.value)} />
+          <button className='bg-slate-700 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105 ' onClick={() => setDeltaT(deltaValue)}>Set Delta T</button>
+        </div>
+        <div className=' inline-block '>
+          <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeSpeedValue} onChange={(event) => setPlaneSpeedValue(event.target.value)} />
+          <button className='bg-slate-700 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105' onClick={() => setPlaneV(planeSpeedValue)}>Set Plane Speed</button>
+        </div>
+        <div className=' inline-block '>
+          <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={rocketSpeedValue} onChange={(event) => setRocektSpeedValue(event.target.value)} />
+          <button className=' bg-slate-700 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setRocketV(rocketSpeedValue)}>Set Rocket Speed</button>
+        </div>
       </div>
-      <div className=' inline-block mx-2'>
-      <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeSpeedValue} onChange={(event)=>setPlaneSpeedValue(event.target.value)}/>
-      <button className='bg-slate-700 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105' onClick={()=>setPlaneV(planeSpeedValue)}>Set Plane Speed</button>
+      <div className={XPlane < 99 ? ' h-10 m-2 rounded-lg flex justify-center items-center flex-1 bg-red-500' : 'h-10 m-2 rounded-lg flex justify-center items-center basis-1/3 bg-green-500'}>
+        <p className=' text-slate-200 text-xl'>{XPlane < 99 ? "rocket hits the plane D;" : "plane ran away :D"}</p>
       </div>
-      <div className=' inline-block mx-2'>
-      <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={rocketSpeedValue} onChange={(event)=>setRocektSpeedValue(event.target.value)}/>
-      <button className=' bg-slate-700 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={()=>setRocketV(rocketSpeedValue)}>Set Rocket Speed</button>
-      </div>
-    </div>
-    <div className={XPlane<99?' h-10 m-2 rounded-lg flex justify-center items-center bg-red-500':'h-10 m-2 rounded-lg flex justify-center items-center bg-green-500'}>
-      <p className=' text-slate-200 text-xl'>{XPlane<99?"rocket hits the plane D;":"plane ran away :D"}</p>
     </div>
   </div>
 
