@@ -10,7 +10,7 @@ export default function Navbar(){
     return <div>
         <ul className='flex my-3 p-2'>
             <NavbarItem text="Home" />
-            <NavbarItem text="Chart" />
+            <NavbarItem text="ConstSpeed" />
             <NavbarItem text="CalculateRatio" />
             
         </ul>

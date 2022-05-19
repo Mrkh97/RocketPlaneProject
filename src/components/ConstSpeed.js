@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export default function Chart() {
+export default function ConstSpeed() {
   const [deltaValue, setDeltaValue] = useState(0.01)
   const [deltaT, setDeltaT] = useState(0.01);
 
@@ -31,8 +31,8 @@ export default function Chart() {
   const [rocketSpeedValue, setRocektSpeedValue] = useState(28);
   const [rocketV, setRocketV] = useState(28);
 
-  const [planeYValue,setPlaneYValue] = useState(1000);
-  const [YPlane,setYPlane]=useState(1000);
+  const [planeYValue,setPlaneYValue] = useState(100);
+  const [YPlane,setYPlane]=useState(100);
 
   // const [isCaught,setIsCought] = useState(false);
 
@@ -63,7 +63,6 @@ export default function Chart() {
       //having problem with this at last have to use deltaT value fro breaking
       // setIsCought(true);
       // isIt=true;
-      console.log('yes');
       break;
     }
     // console.log(isCaught);

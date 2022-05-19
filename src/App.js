@@ -1,13 +1,14 @@
-import Chart from "./components/Chart";
 import Navbar from "./components/Navbar"
 import Home from "./components/Home";
+import CalculateRatio from "./components/CalculateRatio";
+import ConstSpeed from "./components/ConstSpeed";
 
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
-import CalculateRatio from "./components/CalculateRatio";
+
 
 // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
@@ -64,7 +65,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/chart" element={<Chart/>} />
+      <Route path="/constspeed" element={<ConstSpeed/>} />
       <Route path="/calculateratio" element={<CalculateRatio/>} />
     </Routes>
   </Router>
