@@ -11,8 +11,8 @@ export default function Navbar(){
         <ul className='flex my-3 p-2'>
             <NavbarItem text="Home" />
             <NavbarItem text="ConstSpeed" />
+            <NavbarItem text="VariableSpeed" />
             <NavbarItem text="CalculateRatio" />
-            
         </ul>
     </div>
 }

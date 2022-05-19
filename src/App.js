@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar"
 import Home from "./components/Home";
 import CalculateRatio from "./components/CalculateRatio";
 import ConstSpeed from "./components/ConstSpeed";
+import VariableSpeed from "./components/VariableSpeed"
 
 import {
   BrowserRouter as Router,
@@ -66,6 +67,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/constspeed" element={<ConstSpeed/>} />
+      <Route path="/variablespeed" element={<VariableSpeed/>} />
       <Route path="/calculateratio" element={<CalculateRatio/>} />
     </Routes>
   </Router>

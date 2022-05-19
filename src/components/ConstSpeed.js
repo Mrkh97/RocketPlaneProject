@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { useState } from 'react';
+import {  useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -28,16 +28,19 @@ export default function ConstSpeed() {
   const [planeSpeedValue, setPlaneSpeedValue] = useState(13);
   const [planeV, setPlaneV] = useState(13);
 
-  const [rocketSpeedValue, setRocektSpeedValue] = useState(28);
-  const [rocketV, setRocketV] = useState(28);
+  const [rocketSpeedValue, setRocektSpeedValue] = useState(20);
+  const [rocketV, setRocketV] = useState(20);
 
   const [planeYValue,setPlaneYValue] = useState(100);
   const [YPlane,setYPlane]=useState(100);
 
+  const [planeY2Value,setPlaneY2Value] = useState(100);
+  const [Y2Plane,setY2Plane]=useState(100);
+
   // const [isCaught,setIsCought] = useState(false);
 
   let XPlane = 0;
-  
+  let Y1Plane = YPlane;
   let XtPlane = [];
   let YtPlane = [];
   let planeCordinates = {};
@@ -48,18 +51,22 @@ export default function ConstSpeed() {
   let YtRocket = [];
   let rocketCordinates = {};
 
+  let dif = Y2Plane-YPlane;
+
 
 
   while (XPlane < 100) {
     XtPlane.push(XPlane);
-    YtPlane.push(YPlane);
+    YtPlane.push(Y1Plane);
     XtRocket.push(XRocket);
     YtRocket.push(YRocket);
     XPlane = XPlane + (planeV * deltaT);
-    XRocket = XRocket + (rocketV * deltaT * ((XPlane - XRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
-    YRocket = YRocket + (rocketV * deltaT * ((YPlane - YRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
+    Y1Plane = Y1Plane + ((dif/100) * ((planeV * deltaT)));
+
+    XRocket = XRocket + (rocketV * deltaT * ((XPlane - XRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((Y1Plane - YRocket) ** 2)))));
+    YRocket = YRocket + (rocketV * deltaT * ((Y1Plane - YRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((Y1Plane - YRocket) ** 2)))));
     // console.log((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))));
-    if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))) < 1) {
+    if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((Y1Plane - YRocket) ** 2))) < 1) {
       //having problem with this at last have to use deltaT value fro breaking
       // setIsCought(true);
       // isIt=true;
@@ -159,7 +166,7 @@ export default function ConstSpeed() {
   // }
   const [isRenderd,setIsRenderd] = useState(true)
   
-
+  
   return <div className="  sm:flex lg:grid grid-cols-4">
     <div className=" p-10 bg-slate-300 m-2 rounded-lg  col-span-3">
     <button className='bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105 ' onClick={()=>isRenderd?setIsRenderd(false):setIsRenderd(true)}>Render Chart</button>
@@ -184,6 +191,10 @@ export default function ConstSpeed() {
         <div className=' flex flex-col '>
           <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeYValue} onChange={(event) => setPlaneYValue(event.target.value)} />
           <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setYPlane(planeYValue)}>Set Plane Height</button>
+        </div>
+        <div className=' flex flex-col '>
+          <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeY2Value} onChange={(event) => setPlaneY2Value(event.target.value)} />
+          <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setY2Plane(planeY2Value)}>Set Plane Final Height</button>
         </div>
       </div>
       <div className={XPlane < 99 ? ' h-10 m-2 p-2 rounded-lg flex justify-center items-center flex-1 bg-red-500' : 'h-10 m-2 p-2 rounded-lg flex justify-center items-center basis-1/3 bg-green-500'}>
