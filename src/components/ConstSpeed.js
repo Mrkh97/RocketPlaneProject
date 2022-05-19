@@ -160,7 +160,7 @@ export default function ConstSpeed() {
   const [isRenderd,setIsRenderd] = useState(true)
   
 
-  return <div className=" grid grid-cols-4">
+  return <div className="  sm:flex lg:grid grid-cols-4">
     <div className=" p-10 bg-slate-300 m-2 rounded-lg  col-span-3">
     <button className='bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105 ' onClick={()=>isRenderd?setIsRenderd(false):setIsRenderd(true)}>Render Chart</button>
       {isRenderd?<Line options={options} data={data} />:""}
