@@ -14,24 +14,17 @@ import { Bar } from 'react-chartjs-2';
 import { initializeApp } from "firebase/app";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
+import { firebaseConfig } from './FirebaseConfig';
 
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyD8ZlNaErghnkndW_-safjeiYM2z6nxA7Q",
-  authDomain: "bold-vent-312916.firebaseapp.com",
-  projectId: "bold-vent-312916",
-  storageBucket: "bold-vent-312916.appspot.com",
-  messagingSenderId: "931849978865",
-  appId: "1:931849978865:web:c025021515246086eaba50",
-  measurementId: "G-8FSDQ8LLY6"
-};
+
 
 // firebaseApps previously initialized using initializeApp()
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app);
-connectFirestoreEmulator(db, 'localhost', 8080);
+// connectFirestoreEmulator(db, 'localhost', 8080);
 
 
 ChartJS.register(
@@ -83,7 +76,9 @@ const options = {
 export default function HttpChart(){
     const [isRenderd,setIsRenderd] = useState(false)
     const [getRequestData,setGetRequestData]=useState([{'size':10,'timeStamp':1652075157}])
+    const [postRequestData,setPostRequestData]=useState([{'size':10,'timeStamp':1652075157}])
     const [dataByMonth,setDataByMonth]=useState({'January':0, 'February':0, 'March':0, 'April':0, 'May':0, 'June':0, 'July':0,'August':0,'September':0,'October':0,'November':0,'December':0})
+    const [postDataByMonth,setPostDataByMonth]=useState({'January':0, 'February':0, 'March':0, 'April':0, 'May':0, 'June':0, 'July':0,'August':0,'September':0,'October':0,'November':0,'December':0})
     
 
     function getMonthName(ts){
@@ -98,9 +93,12 @@ export default function HttpChart(){
         getRequestData.map((item)=> {
             let movagat = dataByMonth
             movagat[getMonthName(item['timeStamp'])] = movagat[getMonthName(item['timeStamp'])]+item['size']
-            console.log(dataByMonth)
-
             setDataByMonth(movagat)
+        })
+        postRequestData.map((item)=> {
+            let movagat = postDataByMonth
+            movagat[getMonthName(item['timeStamp'])] = movagat[getMonthName(item['timeStamp'])]-item['size']
+            setPostDataByMonth(movagat)
         })
         isRenderd?setIsRenderd(false):setIsRenderd(true)
     }
@@ -110,23 +108,26 @@ export default function HttpChart(){
         const UserCollectionRef = collection(db,"GetRequests")
         const getData = async () => {
             const data = await getDocs(UserCollectionRef);
+            const postData = await getDocs(collection(db,"PostRequests"));
             setGetRequestData(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
+            setPostRequestData(postData.docs.map((doc)=>({...doc.data(),id:doc.id})))
         }
         getData();
     },[])
       console.log(getRequestData)
+      console.log(postRequestData)
 
       const data = {
         labels,
         datasets: [
           {
-            label: 'Dataset 1',
+            label: 'GetRequests',
             data: dataByMonth,
             backgroundColor: 'rgb(255, 99, 132)',
           },
           {
-            label: 'Dataset 2',
-            data: labels.map((item,index) => dataByMonth[index]),
+            label: 'PostRequests',
+            data: postDataByMonth,
             backgroundColor: 'rgb(75, 192, 192)',
           },
         ],
