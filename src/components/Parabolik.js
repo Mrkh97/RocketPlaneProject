@@ -21,27 +21,28 @@ import {
     Legend
   );
   
-  export default function ConstSpeed() {
+  export default function Parabolik() {
     const [deltaValue, setDeltaValue] = useState(0.01)
     const [deltaT, setDeltaT] = useState(0.01);
   
-    const [planeSpeedValue, setPlaneSpeedValue] = useState(12);
-    const [planeV, setPlaneV] = useState(12);
-  
-    const [planeAccelerationValue, setPlaneAccelerationValue] = useState(0);
-    const [planeAcceleration, setPlaneAcceleration] = useState(0);
+    const [planeSpeedValue, setPlaneSpeedValue] = useState(13);
+    const [planeV, setPlaneV] = useState(13);
   
     const [rocketSpeedValue, setRocektSpeedValue] = useState(20);
     const [rocketV, setRocketV] = useState(20);
   
-    const [planeYValue,setPlaneYValue] = useState(100);
-    const [YPlane,setYPlane]=useState(100);
+    // const [planeYValue,setPlaneYValue] = useState(100);
+    // const [YPlane,setYPlane]=useState(100);
+
+    // const [targetXValue,setTargetXValue] = useState(50);
+    // const [targetX,setTargetX]=useState(50);
+
+    const [targetYValue,setTargetYValue] = useState(1000);
+    const [targetY, setTargetY] = useState(1000);
   
-  
-    // const [isCaught,setIsCought] = useState(false);
-  
+    console.log(targetY)
     let XPlane = 0;
-    let Y1Plane = YPlane;
+    let YPlane = 100;
     let XtPlane = [];
     let YtPlane = [];
     let planeCordinates = {};
@@ -51,18 +52,22 @@ import {
     let XtRocket = [];
     let YtRocket = [];
     let rocketCordinates = {};
+    
+    let targetX = 50;
+    let ratio=((targetX-XPlane)**2+targetY)/100
+
   
-   let planeSpeed = planeV;
+  
   
     while (XPlane < 100) {
-    //   console.log(Math.sqrt(-1*((2*planeAcceleration*(0.1))-(planeV**2))))
       XtPlane.push(XPlane);
-      YtPlane.push(Y1Plane);
+      
       XtRocket.push(XRocket);
       YtRocket.push(YRocket);
-      planeSpeed = planeSpeed + planeAcceleration*deltaT
-      XPlane = XPlane + (planeSpeed * deltaT);
-      
+      YtPlane.push(YPlane);
+      XPlane = XPlane + (planeV * deltaT);
+      YPlane = (1/(ratio))*((targetX-XPlane)**2+targetY) ;
+    
       XRocket = XRocket + (rocketV * deltaT * ((XPlane - XRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
       YRocket = YRocket + (rocketV * deltaT * ((YPlane - YRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
       // console.log((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))));
@@ -75,7 +80,7 @@ import {
       // console.log(isCaught);
     }
   
-
+  
   
     XtPlane.forEach((item, i) => planeCordinates[item.toFixed(10)] = YtPlane[i]);
     XtRocket.forEach((item, i) => rocketCordinates[item] = YtRocket[i]);
@@ -160,7 +165,7 @@ import {
         },
       ],
     };
-  
+
     // if ((Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2))) < 0.1){
     //   setIsCought(true);
     // }
@@ -181,22 +186,20 @@ import {
           </div>
           <div className=' flex flex-col '>
             <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeSpeedValue} onChange={(event) => setPlaneSpeedValue(event.target.value)} />
-            <button className='bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105' onClick={() => setPlaneV(planeSpeedValue*1)}>Set Plane Speed</button>
-          </div>
-          <div className=' flex flex-col '>
-            <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeAccelerationValue} onChange={(event) => setPlaneAccelerationValue(event.target.value)} />
-            <button className='bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105' onClick={() => setPlaneAcceleration(planeAccelerationValue)}>Set Plane Acceleration</button>
+            <button className='bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105' onClick={() => setPlaneV(planeSpeedValue)}>Set Plane Speed</button>
           </div>
           <div className=' flex flex-col '>
             <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={rocketSpeedValue} onChange={(event) => setRocektSpeedValue(event.target.value)} />
             <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setRocketV(rocketSpeedValue)}>Set Rocket Speed</button>
           </div>
-          
+          {/* <div className=' flex flex-col '>
+            <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={targetXValue} onChange={(event) => setTargetXValue(event.target.value)} />
+            <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setTargetX(targetXValue)}>Set Target X</button>
+          </div> */}
           <div className=' flex flex-col '>
-            <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeYValue} onChange={(event) => setPlaneYValue(event.target.value)} />
-            <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setYPlane(planeYValue)}>Set Plane Height</button>
+            <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={targetYValue} onChange={(event) => setTargetYValue(event.target.value)} />
+            <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setTargetY(targetYValue*1)}>Set Target Y</button>
           </div>
-          
         </div>
         <div className={XPlane < 99 ? ' h-10 m-2 p-2 rounded-lg flex justify-center items-center flex-1 bg-red-500' : 'h-10 m-2 p-2 rounded-lg flex justify-center items-center basis-1/3 bg-green-500'}>
           <p className=' text-slate-200 text-xl'>{XPlane < 99 ? "rocket hits the plane D;" : "plane ran away :D"}</p>

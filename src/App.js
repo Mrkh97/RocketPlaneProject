@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import CalculateRatio from "./components/CalculateRatio";
 import ConstSpeed from "./components/ConstSpeed";
 import VariableSpeed from "./components/VariableSpeed"
+import Parabolik from "./components/Parabolik"
 
 import {
   BrowserRouter as Router,
@@ -23,6 +24,7 @@ function App() {
       <Route path="/variablespeed" element={<VariableSpeed/>} />
       <Route path="/calculateratio" element={<CalculateRatio/>} />
       <Route path="/httpchart" element={<HttpChart/>} />
+      <Route path="/parabolik" element={<Parabolik/>} />
     </Routes>
   </Router>
   );

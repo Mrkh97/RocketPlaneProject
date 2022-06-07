@@ -13,7 +13,8 @@ export default function Navbar(){
             <NavbarItem text="ConstSpeed" />
             <NavbarItem text="VariableSpeed" />
             <NavbarItem text="CalculateRatio" />
-            <NavbarItem text="HttpChart" />
+            <NavbarItem text="Parabolik" />
+            {/* <NavbarItem text="HttpChart" /> */}
         </ul>
     </div>
 }

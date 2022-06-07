@@ -190,7 +190,7 @@ export default function ConstSpeed() {
         
         <div className=' flex flex-col '>
           <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeYValue} onChange={(event) => setPlaneYValue(event.target.value)} />
-          <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setYPlane(planeYValue)}>Set Plane Height</button>
+          <button className=' bg-slate-700 m-2 text-slate-200 p-1 rounded-lg hover:shadow-lg hover:scale-105  ' onClick={() => setYPlane(planeYValue*1)}>Set Plane Height</button>
         </div>
         <div className=' flex flex-col '>
           <input className=' bg-slate-100 m-2 rounded-lg h-8' type="number" value={planeY2Value} onChange={(event) => setPlaneY2Value(event.target.value)} />
