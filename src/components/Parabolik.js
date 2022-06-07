@@ -37,8 +37,8 @@ import {
     // const [targetXValue,setTargetXValue] = useState(50);
     // const [targetX,setTargetX]=useState(50);
 
-    const [targetYValue,setTargetYValue] = useState(1000);
-    const [targetY, setTargetY] = useState(1000);
+    const [targetYValue,setTargetYValue] = useState(30);
+    const [targetY, setTargetY] = useState(30);
   
     console.log(targetY)
     let XPlane = 0;
@@ -54,7 +54,7 @@ import {
     let rocketCordinates = {};
     
     let targetX = 50;
-    let ratio=((targetX-XPlane)**2+targetY)/100
+    let ratio=((targetX-XPlane)**2+targetY**2)/100
 
   
   
@@ -66,7 +66,7 @@ import {
       YtRocket.push(YRocket);
       YtPlane.push(YPlane);
       XPlane = XPlane + (planeV * deltaT);
-      YPlane = (1/(ratio))*((targetX-XPlane)**2+targetY) ;
+      YPlane = (1/(ratio))*((targetX-XPlane)**2+targetY**2) ;
     
       XRocket = XRocket + (rocketV * deltaT * ((XPlane - XRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
       YRocket = YRocket + (rocketV * deltaT * ((YPlane - YRocket) / (Math.sqrt(((XPlane - XRocket) ** 2) + ((YPlane - YRocket) ** 2)))));
